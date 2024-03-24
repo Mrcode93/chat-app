@@ -63,101 +63,6 @@ wsApp.ws("/ws", (ws, req) => {
   });
 });
 
-// wsApp.ws("/ws", (ws, req) => {
-//   const userId = req.query.userId;
-
-//   connectedClients.set(userId, ws);
-
-//   // Function to send online users to connected clients
-
-//   const sendOnlineUsers = () => {
-//     const onlineUsers = Array.from(connectedClients.keys());
-//     onlineUsers.forEach((user) => {
-//       const recipientWs = connectedClients.get(user);
-//       if (recipientWs) {
-//         recipientWs.send(JSON.stringify({ onlineUsers }));
-//       }
-//     });
-//     ws.send(JSON.stringify({ type: "onlineUsers", data: onlineUsers }));
-//   };
-
-//   sendOnlineUsers(); // Send initial list of online users
-
-//   ws.on("message", (message) => {
-//     try {
-//       const data = JSON.parse(message);
-//       const recipientId = data.recipientId;
-
-//       // Check if the recipient has an active WebSocket connection
-//       const recipientWs = connectedClients.get(recipientId);
-
-//       if (recipientWs) {
-//         // If recipient is connected, send the message to them
-//         recipientWs.send(message);
-//       } else {
-//         ws.send(
-//           JSON.stringify({
-//             error: `Recipient ${recipientId} is not connected`,
-//           })
-//         );
-//       }
-//     } catch (error) {
-//       console.error("Error parsing message:", error);
-//       // Handle parsing errors appropriately
-//     }
-//   });
-
-//   ws.on("close", () => {
-//     connectedClients.delete(userId);
-//     sendOnlineUsers(); // Update online user list after disconnect
-//   });
-// });
-
-// WebSocket connection handling
-// wsApp.ws("/ws", (ws, req) => {
-//   const userId = req.query.userId;
-
-//   connectedClients.set(userId, ws);
-
-//   console.log(`User ${userId} connected`);
-
-//   // send to users who are online
-//   const onlineUsers = Array.from(connectedClients.keys());
-//   onlineUsers.forEach((user) => {
-//     // console.log(`${onlineUsers}`);
-//     const recipientWs = connectedClients.get(user);
-//     recipientWs.send(JSON.stringify({ onlineUsers }));
-//     ws.send(JSON.stringify({ type: "onlineUsers", data: onlineUsers }));
-//   });
-
-//   // Function to send online users to connected clients
-
-//   ws.on("message", (message) => {
-//     // Parse the incoming message
-//     const data = JSON.parse(message);
-//     const recipientId = data.recipientId;
-
-//     // Check if the recipient has an active WebSocket connection
-//     const recipientWs = connectedClients.get(recipientId);
-
-//     if (recipientWs) {
-//       // If recipient is connected, send the message to them
-//       recipientWs.send(message);
-//     } else {
-//       ws.send(
-//         JSON.stringify({
-//           error: `Recipient ${recipientId} is not connected`,
-//         })
-//       );
-//     }
-//   });
-
-//   ws.on("close", () => {
-//     connectedClients.delete(userId);
-//     // console.log(`User ${userId} disconnected`);
-//   });
-// });
-
 mongoose
   .connect(URL)
   .then(() => {
@@ -172,7 +77,7 @@ mongoose
   });
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "https://chat-app93.netlify.app"],
   credentials: true,
 };
 
