@@ -42,6 +42,25 @@ The page represents a routing configuration using React Router for a web applica
 - **Chat Functionality:** Users can initiate one-on-one chats with other users via the `Chats` component.
 - **User Profiles:** Accessible via the `ProfilePage` component, users can view their own profile or profiles of other users.
 
+## Dependencies
+- `react-router-dom`
+- `socket.io-client`
+
+## Tecnology Stack in frontend and backend
+- [React](https://reactjs.org/)
+- [React Router](https://reacttraining.com/react-router/web/api/Route)
+- [Express](https://expressjs.com/)
+- [Socket.io](https://socket.io/)
+- [MongoDB](https://www.mongodb.com/)
+- [Node.js](https://nodejs.org/en/)
+
+## Deployment for Frontend
+- [Netlify](https://www.netlify.com/)
+
+## Deployment for Backend
+- [Render](https://render.com/)
+
+
 ## Screenshots
 
 ### Main Dashboard
