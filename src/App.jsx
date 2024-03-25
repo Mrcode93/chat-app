@@ -13,11 +13,13 @@ function App() {
   const [user, setAuth] = useState(false);
   useEffect(() => {
     sessionStorage.getItem("auth") === "true" ? setAuth(true) : setAuth(false);
-    // set time to show toast every minute
+  }, []);
 
+  useEffect(() => {
+    // Show the toast when the component mounts
     toast.success("مبدئياً السيرفر مجاني ..فأكيد راح يكون بطيء!", {
       position: "top-center",
-      autoClose: 5000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -25,7 +27,9 @@ function App() {
       progress: undefined,
       theme: "dark",
     });
-  }, [user]);
+
+    // use the GSAP hook to animate the content
+  }, []);
 
   return (
     <>

@@ -54,9 +54,9 @@ const ProfilePage = () => {
           if (!friendUser) return "You don't have any friends"; // If friendUser is not found, skip rendering
           return (
             <li key={index} className="friend-card">
-              <h3>{friendUser.username}</h3>
+              <h3>{friendUser?.username.toUpperCase()}</h3>
               <Avatar
-                alt={friendUser.username} // Add a null check here
+                alt={friendUser?.username.toUpperCase()} // Add a null check here
                 src={friendUser.profilePicture}
                 className="avatar"
               />

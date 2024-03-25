@@ -49,10 +49,12 @@
     padding: 10px;
     list-style-type: none;
     width: 100%;
+    min-height: 300px;
     text-align: center;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
     li {
       list-style-type: none;

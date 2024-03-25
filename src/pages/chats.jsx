@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { deepPurple } from "@mui/material/colors";
 import { Context } from "../context/Context";
 import { baseUrl } from "../utils/services";
+import notification from "../assets/note.wav";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -38,7 +39,6 @@ export default function Chats() {
   const recipient_Id = useParams().userId;
 
   const currentUser = JSON.parse(sessionStorage.getItem("user")).userId;
-  console.log("user", currentUser);
 
   useEffect(() => {
     getUsers();
@@ -70,7 +70,8 @@ export default function Chats() {
       }
     };
 
-    getUsers();
+    // Create a new Audio instance for the notification sound
+    const notificationAudio = new Audio(notification);
 
     ws.current = new WebSocket(
       `wss://chat-app-speh.onrender.com/ws?userId=${currentUser}`
@@ -78,7 +79,13 @@ export default function Chats() {
 
     ws.current.onmessage = (event) => {
       const newMessage = JSON.parse(event.data);
-      // console.log(newMessage);
+      console.log(newMessage);
+
+      // Check if the message is for the specific user
+      if (newMessage.recipientId === currentUser) {
+        // Play the notification sound
+        notificationAudio.play();
+      }
 
       // Check if the message is already in the chatMessages to prevent duplicates
       if (!chatMessages.some((msg) => msg._id === newMessage._id)) {

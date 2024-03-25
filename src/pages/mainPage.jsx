@@ -23,44 +23,26 @@ const MainPage = () => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [friends, setFriends] = useState([]);
   const ws = useRef(null);
-  const { logOutUser, getUsers, allUsers, setUser } = useContext(Context);
+  const { logOutUser, getUsers, allUsers } = useContext(Context);
 
   useEffect(() => {
-    // Check token validity and fetch users
-    // const checkTokenAndFetchUsers = async () => {
-    //   try {
-    //     const token = document.cookie;
-    //     const response = await axios.get(
-    //       "https://chat-app-speh.onrender.com/auth/token",
-    //       {
-    //         headers: { Authorization: `Bearer ${token}` },
-    //         withCredentials: true,
-    //       }
-    //     );
-    //     if (response.status === 200) {
-    //       getUsers();
-    //       localStorage.setItem("auth", true);
-    //       setCurrentUser(response.data);
-    //       setUser(response.data);
-    //       setFriends(response.data.friends);
-    //     } else {
-    //       window.location.href = "/login";
-    //       localStorage.removeItem("auth");
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //     localStorage.removeItem("auth");
-    //     window.location.href = "/login";
-    //   }
-    // };
-    // checkTokenAndFetchUsers();
-    // console.log(sessionStorage.getItem("user"));
+    getUsers();
+    setFriends(JSON.parse(sessionStorage.getItem("user")).friends);
+
     setCurrentUser(JSON.parse(sessionStorage.getItem("user")));
-    console.log("user", user);
 
     if (!user) {
       return;
     }
+
+    // allUsers.forEach((item) => {
+    //   // console.log(user);
+    //   // check if user is already in friends
+    //   if (item.friends.includes(user.userId)) {
+    //     console.log("User is already in friends");
+    //   }
+    // });
+    console.log(friends);
 
     // WebSocket setup
     ws.current = new WebSocket(
@@ -87,7 +69,6 @@ const MainPage = () => {
     if (message.type === "onlineUsers") {
       if (Array.isArray(message.data)) {
         setOnlineUsers(message.data);
-        console.log("Received online users:", message.data);
       } else {
         console.error("Received data is not an array:", message.data);
       }
@@ -224,3 +205,33 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+// Check token validity and fetch users
+// const checkTokenAndFetchUsers = async () => {
+//   try {
+//     const token = document.cookie;
+//     const response = await axios.get(
+//       "https://chat-app-speh.onrender.com/auth/token",
+//       {
+//         headers: { Authorization: `Bearer ${token}` },
+//         withCredentials: true,
+//       }
+//     );
+//     if (response.status === 200) {
+//       getUsers();
+//       localStorage.setItem("auth", true);
+//       setCurrentUser(response.data);
+//       setUser(response.data);
+//       setFriends(response.data.friends);
+//     } else {
+//       window.location.href = "/login";
+//       localStorage.removeItem("auth");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     localStorage.removeItem("auth");
+//     window.location.href = "/login";
+//   }
+// };
+// checkTokenAndFetchUsers();
+// console.log(sessionStorage.getItem("user"));

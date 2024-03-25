@@ -47,6 +47,8 @@ The page represents a routing configuration using React Router for a web applica
 - `socket.io-client`
 
 ## Tecnology Stack in frontend and backend
+- [Vite](https://vitejs.dev/)
+- [Material UI](https://mui.com/)
 - [React](https://reactjs.org/)
 - [React Router](https://reacttraining.com/react-router/web/api/Route)
 - [Express](https://expressjs.com/)
